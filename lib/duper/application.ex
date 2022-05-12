@@ -5,7 +5,7 @@ defmodule Duper.Application do
   def start(_type, _args) do
     children = [
       Duper.Results,
-      {Duper.PathFinder, "."},
+      {Duper.PathFinder, Application.get_env(:duper ,:initial_directory)},
       Duper.WorkerSupervisor,
       {Duper.Gatherer, 1}
     ]
