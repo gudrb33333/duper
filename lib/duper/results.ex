@@ -1,4 +1,5 @@
 defmodule Duper.Results do
+    require Logger
     use GenServer
 
     @me __MODULE__
@@ -6,10 +7,12 @@ defmodule Duper.Results do
     #API
 
     def start_link(_) do
+        Logger.info("Results Server Started")
         GenServer.start_link(__MODULE__, :no_args, name: @me)
     end
 
     def add_hash_for(path, hash) do
+        Logger.info "Results.add_hash_for/2 Called"
         GenServer.cast(@me, {:add, path, hash})
     end
 
@@ -37,6 +40,7 @@ defmodule Duper.Results do
                     [path|existing]
                 end    
             )
+            
         {:noreply, results}
     end    
 
